@@ -26,3 +26,40 @@ export function stringToSlug(title) {
     return slug;
 }
 
+function removeAscent (str) {
+    if (str === null || str === undefined) return str;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    return str;
+}
+
+export function validateName(str) {
+    var regex = /^[a-zA-Z ]{2,30}$/;
+    return regex.test(removeAscent(str));
+}
+
+export function validateEmail(email) {
+    var regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+};
+
+export function validatePhone(phone) {
+    var regex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+    return regex.test(phone);
+};
+
+export function validateDate(date) {
+    var regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+    return regex.test(date);
+};
+
+export function validateNumber(str) {
+    var regex = /^\d+$/;
+    return regex.test(str);
+};
