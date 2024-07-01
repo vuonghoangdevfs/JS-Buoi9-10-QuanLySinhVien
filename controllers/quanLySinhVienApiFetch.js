@@ -1,5 +1,5 @@
 import { SinhVien } from "../models/SinhVien.js";
-import { stringToSlug, validateName, validateEmail, validatePhone, validateDate, validateNumber} from "../assets/util/method.js";
+import { stringToSlug, validateName, validateEmail, validatePhone, validateNumber} from "../assets/util/method.js";
 
 let arrSV = [];
 document.querySelector('#frmSinhVien').onsubmit = async function (e) {
@@ -16,7 +16,7 @@ document.querySelector('#frmSinhVien').onsubmit = async function (e) {
             let value = input.value;
             svMoi[id] = value;
         }
-        let svTonTai = arrSV.find(sv => sv.maSinhVien === svMoi.maSinhVien);
+        let svTonTai = arrSV.find(sv => sv.maSinhVien == svMoi.maSinhVien);
         if(!svTonTai){
             const response = await fetch('https://svcy.myclass.vn/api/SinhVienApi/themSinhVien',{
                 method:'POST',
@@ -43,7 +43,7 @@ window.resetData = function () {
     document.querySelector('#frmSinhVien').reset();
 }
 
-window.validateInputData = function (arrInput) { //input là mảng 
+window.validateInputData = function (arrInput) {
     let errorMess = '';
     for(let input of arrInput){
         // Validate
@@ -193,7 +193,6 @@ document.querySelector('#frmTimKiem').onsubmit = function(e) {
     let arrKetQuaTimKiem = [];
     arrKetQuaTimKiem = arrSV.filter(sv => stringToSlug(sv[loaiTimKiem]).search(tuKhoa) !== -1);
     
-    //Sau khi filter thì dùng mảng kết quả render lại table
     renderTableTimKiemSinhVien(arrKetQuaTimKiem);
 }
 
